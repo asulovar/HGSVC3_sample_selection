@@ -5,7 +5,6 @@ library("SNPRelate")
 library("data.table")
 library("raster")
 
-setwd("C:/Users/arvis/OneDrive/Documents/WorkComp/POSTDOC/Projects/Collaborations/HGSVC/1KG_high_depth/sv_genotypes_pangenie")
 
 # 1kg info file
 hgsvc_samples <- read.delim("1KG_3202_samples.ped",header=T)
@@ -28,7 +27,7 @@ hgsvc_lr_YR1and2_samples <- unique(hgsvc_lr_YR1and2_samples)
 hprc_samples <- read.delim("../SNV_genotypes/HPRC_combined_120samples.txt",header=T)
 colnames(hprc_samples)[2] <- "Sample"
 
-# Create merged set for HGSVC and HPRC sample PEDs
+# Create a merged set for HGSVC and HPRC sample PEDs
 merged_1 <- merge(hgsvc_samples,hgsvc_samples_2504,by="SampleID",all=T)
 write.table(merged_1,"merged_1.tab",quote=F,sep="\t",row.names=F)
 
@@ -83,9 +82,7 @@ merged_out[merged_out$Superpopulation=="AMR",]$Superpopulation_colors <- rep("#f
 
 # PCA panel (1x2) for the Pangenie genotypes
 par(mfrow=c(1,1))
-
 plot(merged_out$PC1,merged_out$PC2,pch=19,col=merged_out$Superpopulation_colors,xlab="PC1",ylab="PC2")
-
 plot(merged_out$PC2,merged_out$PC3,pch=19,col=merged_out$Superpopulation_colors,xlab="PC2",ylab="PC3",xlim=c(-0.05,0.03),ylim=c(-0.05,0.065))
 
 
@@ -93,14 +90,9 @@ plot(merged_out$PC2,merged_out$PC3,pch=19,col=merged_out$Superpopulation_colors,
 # PCA panel (2x2) for the GATK genotypes
 par(mfrow=c(2,2))
 plot(merged_out$PC1,merged_out$PC2,pch=19,col=merged_out$Superpopulation_colors,xlab="PC1 (1.29%)",ylab="PC2 (0.42%)",ylim=c(-0.05,0.05),xlim=c(-0.02,0.05))
-
 plot(merged_out$PC2,merged_out$PC3,pch=19,col=merged_out$Superpopulation_colors,xlab="PC2 (0.42%)",ylab="PC3 (0.21%)",xlim=c(-0.05,0.05),ylim=c(-0.05,0.065))
-
 plot(merged_out$PC3,merged_out$PC4,pch=19,col=merged_out$Superpopulation_colors,xlab="PC3 (0.21%)",ylab="PC4 (0.16%)",xlim=c(-0.05,0.065),ylim=c(-0.04,0.12))
-
 plot(merged_out$PC4,merged_out$PC5,pch=19,col=merged_out$Superpopulation_colors,xlab="PC4 (0.16%)",ylab="PC5 (0.14%)",xlim=c(-0.04,0.12),ylim=c(-0.25,0.052))
-
-
 plot(merged_out$PC5,merged_out$PC6,pch=19,col=merged_out$Superpopulation_colors,xlab="PC5",ylab="PC6")
 plot(merged_out$PC6,merged_out$PC7,pch=19,col=merged_out$Superpopulation_colors,xlab="PC6",ylab="PC7")
 
@@ -161,14 +153,10 @@ par(new=T); plot(merged_out_centroidB$PC2,merged_out_centroidB$PC3,pch=22,col=me
 
 # Combined HPRC and HGSVC projections
 
-
 # Take 2 on YR 1 and 2 sample annotation (this time using GATK's genotypes, not pangenies)
 par(new=T);plot(merged_out_yr1_and_2$PC1,merged_out_yr1_and_2$PC2,pch=25,col=merged_out_yr1_and_2$Superpopulation_colors,xlab="",ylab="",ylim=c(-0.05,0.05),xlim=c(-0.02,0.05),bg="black")
-
 par(new=T);plot(merged_out_yr1_and_2$PC2,merged_out_yr1_and_2$PC3,pch=25,col=merged_out_yr1_and_2$Superpopulation_colors,xlab="",ylab="",xlim=c(-0.05,0.05),ylim=c(-0.05,0.065),bg="black")
-
 par(new=T);plot(merged_out_yr1_and_2$PC3,merged_out_yr1_and_2$PC4,pch=25,col=merged_out_yr1_and_2$Superpopulation_colors,xlab="",ylab="",xlim=c(-0.05,0.065),ylim=c(-0.04,0.12),bg="black")
-
 par(new=T);plot(merged_out_yr1_and_2$PC4,merged_out_yr1_and_2$PC5,pch=25,col=merged_out_yr1_and_2$Superpopulation_colors,xlab="",ylab="",xlim=c(-0.04,0.12),ylim=c(-0.25,0.052),bg="black")
 
 
@@ -182,85 +170,6 @@ par(new=T); plot(merged_out_yr1$PC2,merged_out_yr1$PC3,pch=25,col=merged_out_yr1
 # YEAR 2 Long read sequencing samples annotated as triangled filled in black color
 par(new=T); plot(merged_out_yr2$PC1,merged_out_yr2$PC2,pch=25,col=merged_out_yr2$Superpopulation_colors,xlab="",ylab="",bg="black",ylim=c(-0.05,0.03),xlim=c(-0.02,0.05))
 par(new=T); plot(merged_out_yr2$PC2,merged_out_yr2$PC3,pch=25,col=merged_out_yr2$Superpopulation_colors,xlab="",ylab="",bg="black",xlim=c(-0.05,0.03),ylim=c(-0.05,0.065))
-
-
-
-
-# ADMIX PLOT
-#EXAMPLE GENO FILE
-genofile <- snpgdsOpen(snpgdsExampleFileName())
-pop_code <- read.gdsn(index.gdsn(genofile, "sample.annot/pop.group"))
-samp.id <- read.gdsn(index.gdsn(genofile, "sample.id"))
-RV <- snpgdsEIGMIX(genofile)
-groups <- list(CEU = samp.id[pop_code == "CEU"],
-               YRI = samp.id[pop_code == "YRI"],
-               CHB = samp.id[is.element(pop_code, c("HCB", "JPT"))])
-
-prop <- snpgdsAdmixProp(RV, groups=groups)
-
-snpgdsAdmixPlot(prop, group=pop_code)
-snpgdsClose(genofile)
-
-
-# HGSVC samples -- ALL automsal Indels & SVs
-genofile <- openfn.gds("hgsvc_sv.gds")
-pop_code <- merged_out$Superpopulation
-samp.id <- merged_out$SampleID
-RV <- snpgdsEIGMIX(genofile,num.thread = 4,verbose = T)
-groups <- list(AFR = hgsvc_samples[hgsvc_samples$Superpopulation=="AFR",]$SampleID,
-               EAS = hgsvc_samples[hgsvc_samples$Superpopulation=="EAS",]$SampleID,
-               SAS = hgsvc_samples[hgsvc_samples$Superpopulation=="SAS",]$SampleID,
-               AMR = hgsvc_samples[hgsvc_samples$Superpopulation=="AMR",]$SampleID,
-               EUR = hgsvc_samples[hgsvc_samples$Superpopulation=="EUR",]$SampleID)
-
-groups <- list(ACB=hgsvc_samples[hgsvc_samples$Population=="ACB",]$SampleID,
-               ASW=hgsvc_samples[hgsvc_samples$Population=="ASW",]$SampleID,
-               BEB=hgsvc_samples[hgsvc_samples$Population=="BEB",]$SampleID,
-               CDX=hgsvc_samples[hgsvc_samples$Population=="CDX",]$SampleID,
-               CEU=hgsvc_samples[hgsvc_samples$Population=="CEU",]$SampleID,
-               CHB=hgsvc_samples[hgsvc_samples$Population=="CHB",]$SampleID,
-               CHS=hgsvc_samples[hgsvc_samples$Population=="CHS",]$SampleID,
-               CLM=hgsvc_samples[hgsvc_samples$Population=="CLM",]$SampleID,
-               ESN=hgsvc_samples[hgsvc_samples$Population=="ESN",]$SampleID,
-               FIN=hgsvc_samples[hgsvc_samples$Population=="FIN",]$SampleID,
-               GBR=hgsvc_samples[hgsvc_samples$Population=="GBR",]$SampleID,
-               GIH=hgsvc_samples[hgsvc_samples$Population=="GIH",]$SampleID,
-               GWD=hgsvc_samples[hgsvc_samples$Population=="GWD",]$SampleID,
-               IBS=hgsvc_samples[hgsvc_samples$Population=="IBS",]$SampleID,
-               ITU=hgsvc_samples[hgsvc_samples$Population=="ITU",]$SampleID,
-               JPT=hgsvc_samples[hgsvc_samples$Population=="JPT",]$SampleID,
-               KHV=hgsvc_samples[hgsvc_samples$Population=="KHV",]$SampleID,
-               LWK=hgsvc_samples[hgsvc_samples$Population=="LWK",]$SampleID,
-               MSL=hgsvc_samples[hgsvc_samples$Population=="MSL",]$SampleID,
-               MXL=hgsvc_samples[hgsvc_samples$Population=="MXL",]$SampleID,
-               PEL=hgsvc_samples[hgsvc_samples$Population=="PEL",]$SampleID,
-               PJL=hgsvc_samples[hgsvc_samples$Population=="PJL",]$SampleID,
-               PUR=hgsvc_samples[hgsvc_samples$Population=="PUR",]$SampleID,
-               STU=hgsvc_samples[hgsvc_samples$Population=="STU",]$SampleID,
-               TSI=hgsvc_samples[hgsvc_samples$Population=="TSI",]$SampleID,
-               YRI=hgsvc_samples[hgsvc_samples$Population=="YRI",]$SampleID)
-
-
-pdf(file = "AdmiXture_population_level.pdf",width = 30,height = 26)
-prop <- snpgdsAdmixProp(RV, groups=groups)
-snpgdsAdmixPlot(prop, group=pop_code)
-dev.off()
-
-
-# Draw a Tree:
-diss <- snpgdsDiss(genofile,num.thread = 4,verbose = T)
-diss
-hc <- snpgdsHCluster(diss)
-names(hc)
-plot(hc$dendrogram)
-
-
-rv <- snpgdsCutTree(genofile, label.H=TRUE, label.Z=TRUE)
-
-# IBD matrix
-ibd_mx <- fread("IBD_MATRIX.tab",header=T,sep = '\t',nrows = 3202)
-
-heatmap3(ibd_mx,symm = T)
 
 
 
@@ -326,7 +235,7 @@ for(i in 1:length(kmeans_array)){
   # calculate distance from cluster-center for each appropriate sample
   clust_cpecific_distances <- pointDistance(merged_out[slice_idx,2:3],clust_spec_center_coords,lonlat = F)
   
-  # Write ot the specific rows and the last two olums the centroid id and distance to it
+  # Write to the specific rows and the last two columns the centroid id and distance to it
   merged_out_distances_from_centroids[slice_idx,]$DIST_from_CENTROID <- clust_cpecific_distances
   merged_out_distances_from_centroids[slice_idx,]$CENTROID_ID <- rep(j,length(slice_idx))
   #
@@ -365,42 +274,4 @@ for (superpop in c("AFR","AMR","EUR","EAS","SAS")){
 
 centroid_merged_optionA <- data.frame(CENTROID_SAMPLES_MIN=na.omit(as.character(centroid_merged_optionA)))
 centroid_merged_optionB <- data.frame(CENTROID_SAMPLES_MAX=na.omit(as.character(centroid_merged_optionB)))
-
-#TODO: consider similar samples as one
-
-# GO BACK TO PCA PLOTTING
-
-
-
-# Visualize PCA
-plot(merged_out[which(merged_out$Superpopulation=="EUR"),2],merged_out[which(merged_out$Superpopulation=="EUR"),3],pch=as.character(merged_out[which(merged_out$Superpopulation=="EUR"),]$Population))
-
-
-
-
-# Visualize
-library("factoextra")
-fviz_cluster(km.res, data = my_data,
-             ellipse.type = "convex",
-             palette = "jco",
-             ggtheme = theme_minimal())
-
-
-# Start with density based clustering (it might do better than kmeans, given how the PCA looks)
-require("fpc")
-require("dbscan")
-require("factoextra")
-
-# Load the data
-
-df <- merged_out
-
-# Compute DBscan (more notes on how it works: https://www.datanovia.com/en/lessons/dbscan-density-based-clustering-essentials/)
-set.seed(123)
-db <- fpc::dbscan(df[,2:3], eps = 0.15, MinPts = 10)
-
-
-fviz_cluster(db, data = df[,2:3], stand = FALSE,
-             ellipse = FALSE, show.clust.cent = FALSE,
-             geom = "point",palette = "jco", ggtheme = theme_classic())
 
