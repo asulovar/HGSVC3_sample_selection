@@ -7,22 +7,22 @@ library(data.table)
 library(raster)
 
 # Read in the 1KG info file
-hgsvc_samples <- read.delim("1KG_3202_samples.ped", header = TRUE)
+hgsvc_samples <- read.delim("sample_metadata/1KG_3202_samples.ped", header = TRUE)
 
 
 # Uncomment the following if the 2504-sample file is needed
-# hgsvc_samples_2504 <- read.table("all_2504_1KG_samples.txt", header = FALSE)
+# hgsvc_samples_2504 <- read.table("sample_metadata/all_2504_1KG_samples.txt", header = FALSE)
 # colnames(hgsvc_samples_2504) <- "SampleID"
 
 ##### IGNORE THIS BLOCK -- RELEVANT TO HPRC AND HGSVC SAMPLES ONLY
 # Read subsets of samples of interest
-year_1_samples <- read.table("YEAR_1_LongRead_samples_v2.txt", header = TRUE)
-year_2_samples <- read.delim("YEAR_2_LongRead_samples_v2.txt", header = TRUE)
+year_1_samples <- read.table("sample_metadata/YEAR_1_LongRead_samples_v2.txt", header = TRUE)
+year_2_samples <- read.delim("sample_metadata/YEAR_2_LongRead_samples_v2.txt", header = TRUE)
 colnames(year_1_samples) <- "Sample"
 colnames(year_2_samples) <- "Sample"
 hgsvc_lr_YR1and2_samples <- unique(rbind(year_1_samples, year_2_samples))
 
-hprc_samples <- read.delim("HPRC_combined_120samples.txt", header = TRUE)
+hprc_samples <- read.delim("sample_metadata/HPRC_combined_120samples.txt", header = TRUE)
 # (Note: adjust the column name if needed; here we set the second column to 'Sample')
 colnames(hprc_samples)[2] <- "Sample"
 
@@ -36,6 +36,7 @@ hgsvc_hprs_sampleIDs <- unique(sort(c(year_1_samples$Sample, year_2_samples$Samp
 
 #### PCA ANALYSIS ####
 
+# Please see path in the README file for FTP location of this file 
 vcf.fn <- "pangenie_merged_bi_nosnvs.vcf.gz"
 
 # Convert VCF to GDS format and open the file
