@@ -36,6 +36,10 @@
   - `HPRC_combined_120samples.txt`
   - *(Optional)* `all_2504_1KG_samples.txt`
 
+## Additional Data Source
+- **PanGenie VCF Calls:**
+  - URL: [https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/HGSVC2/release/v1.0/PanGenie_results/](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/HGSVC2/release/v1.0/PanGenie_results/)
+
 ## Output
 - **Generated Files:**  
   - `merged_1.tab`  
