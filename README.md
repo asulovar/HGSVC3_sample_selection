@@ -2,7 +2,6 @@
 
 ## Overview
 - R scripts for selecting a diverse HGSVC sample set: VCF conversion, PCA, k-means clustering, and centroid distance calculations.
-- Designed for analyzing 1KG, HPRC, and HGSVC sample datasets.
 
 ## Features
 - **Data Import & Preprocessing**
