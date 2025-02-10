@@ -1,17 +1,17 @@
-# HGSVC3_sample_selection
+# HGSVC3 sample selection
 
 ## Overview
-- R script for genomic data processing: VCF conversion, PCA, k-means clustering, and centroid distance calculations.
+- R scripts for selecting a diverse HGSVC sample set: VCF conversion, PCA, k-means clustering, and centroid distance calculations.
 - Designed for analyzing 1KG, HPRC, and HGSVC sample datasets.
 
 ## Features
 - **Data Import & Preprocessing**
-  - Reads sample metadata from 1KG (and optionally HPRC/HGSVC).
+  - Reads sample metadata from 1KG (and optionally HPRC/HGSVC samples).
   - Converts VCF (`pangenie_merged_bi_nosnvs.vcf.gz`) to GDS format using SNPRelate.
 - **PCA Analysis**
-  - Performs PCA to capture genomic variation.
+  - Performs PCA.
   - Merges PCA results with population metadata.
-  - Generates PCA plots with superpopulation-specific color coding.
+  - Generates PCA plots with superpopulation-specific color coding and symbols.
 - **Clustering & Centroid Analysis**
   - Applies k-means clustering per superpopulation.
   - Determines optimal cluster numbers (via gap statistic).
@@ -36,13 +36,6 @@
   - `YEAR_2_LongRead_samples_v2.txt`
   - `HPRC_combined_120samples.txt`
   - *(Optional)* `all_2504_1KG_samples.txt`
-
-## Usage
-- **Preparation:**  
-  - Update file paths and sample subset selections as needed.
-  - Install required packages.
-- **Execution:**  
-  - Run the script in R (e.g., `source("your_script.R")`).
 
 ## Output
 - **Generated Files:**  
