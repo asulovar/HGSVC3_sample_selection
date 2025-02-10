@@ -57,7 +57,7 @@ write.table(merged_out, "HGSVC_3202_Autosomes_PCA.tab", quote = FALSE, sep = "\t
 # If rerunning, load the saved PCA matrix (adjust file path as needed)
 merged_out <- read.delim("HGSVC_3202_Autosomes_PCA.tab", header = TRUE)
 # Optionally, to use a different PCA result:
-merged_out <- read.delim("../SNV_genotypes/HGSVC_2504_chr22GATK_PCA.tab", header = TRUE)
+merged_out <- read.delim("SNV_genotypes/HGSVC_2504_chr22GATK_PCA.tab", header = TRUE)
 
 # Coerce the first 7 PCs to numeric (you can adjust the range if more PCs are present)
 for(i in 1:7){
