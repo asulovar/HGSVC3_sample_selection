@@ -26,13 +26,12 @@ hprc_samples <- read.delim("HPRC_combined_120samples.txt", header = TRUE)
 # (Note: adjust the column name if needed; here we set the second column to 'Sample')
 colnames(hprc_samples)[2] <- "Sample"
 
-# Merge HGSVC samples (using the 2504 file if applicable)
+# Merge HGSVC samples (using the 2504 file)
 merged_1 <- merge(hgsvc_samples, hgsvc_samples_2504, by = "SampleID", all = TRUE)
 write.table(merged_1, "merged_1.tab", quote = FALSE, sep = "\t", row.names = FALSE)
 
 # Create a combined list of HGSVC and HPRC sample IDs
 hgsvc_hprs_sampleIDs <- unique(sort(c(year_1_samples$Sample, year_2_samples$Sample, hprc_samples$Sample)))
-
 
 
 #### PCA ANALYSIS ####
